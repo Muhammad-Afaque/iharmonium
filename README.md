@@ -13,60 +13,69 @@ A web-based harmonium that uses your laptop's lid angle to control the bellows (
 ## Requirements
 
 - Python 3.7+
-- `websockets` library
-- `pybooklid` library (for MacBook lid sensor)
-- A web browser (Chrome, Firefox, Safari, etc.)
-- A MacBook with a working lid angle sensor
+- A web browser (Chrome, Firefox, Safari, Edge)
+- **MacBook**: `websockets` and `pybooklid` libraries (for real lid sensor)
+- **Windows/Linux**: `websockets` library (runs with simulated lid data for testing)
 
 ## Installation
 
-1. **Set up a virtual environment** (recommended):
+1. **Clone this repository**:
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate
+   git clone <your-repo-url>
+   cd iharmonium
    ```
 
-2. **Install required Python packages**:
+2. **Set up a virtual environment** (recommended):
    ```bash
-   pip install websockets pybooklid
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   
+   # Windows
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Install required Python packages**:
+   ```bash
+   pip install websockets
+   
+   # On MacBook (optional, for real lid sensor):
+   pip install pybooklid
    ```
 
 ## Running the Harmonium
 
-### Step 1: Start the Backend
+### Quick Start (2 terminals)
 
-First, run the Python WebSocket server that reads your laptop's lid angle:
-
+**Terminal 1 - Start the backend:**
 ```bash
 python harmonium.py
 ```
+You should see: `Bridge active! Waiting for your web app on port 8765...`
 
-You should see:
-```
-Bridge active! Waiting for your web app on port 8765...
-```
+**Terminal 2 - Open the frontend:**
+- Double-click `harmonium.html` in a file explorer, OR
+- Open it in your browser directly: `open harmonium.html` (macOS) / `start harmonium.html` (Windows)
 
-### Step 2: Open the HTML File
+### Platform Notes
 
-Open `harmonium.html` in your web browser:
+**MacBook (with lid sensor)**
+- Automatic: Uses real lid angle from your MacBook's built-in sensor
+- Sound responds to closing/opening your lid
 
-```bash
-open harmonium.html
-```
+**Windows/Linux (mock mode)**
+- Automatic: Simulates lid opening/closing for testing
+- Smooth angle oscillation from 0° (closed) to 180° (open)
+- Perfect for development and demo purposes
 
-Or simply double-click the `harmonium.html` file.
+### Playing Instructions
 
-### Step 3: Activate Audio
-
-- Click anywhere on the page once to activate audio (browser security requirement)
-- You should see "Audio Active - Ready to play"
-
-### Step 4: Play!
-
-1. **Press and hold** any of these keys: A, W, S, E, D, F, T, G, Y, H, U, J, K
-2. **Push your laptop lid down** (close it partially) to pump air
-3. The bellows meter will fill up as you close the lid
-4. Sound will play based on how much air is in the bellows!
+1. **Open the HTML file** in your browser
+2. **Click anywhere on the page** once to enable audio (browser security)
+3. **Press and hold keyboard keys** (A, W, S, E, D, F, T, G, Y, H, U, J, K) to play notes
+4. **Close your laptop lid** (or watch the simulated angle) to pump bellows and create sound
+5. The bellows meter shows air pressure - more air = louder sound
 
 ## Key Mapping
 
